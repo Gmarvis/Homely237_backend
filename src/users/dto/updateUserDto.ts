@@ -20,4 +20,8 @@ export class UpdateUserDto {
   @IsString()
   @IsOptional()
   location: string;
+
+  @IsString()
+  @IsOptional()
+  image: string;
 }

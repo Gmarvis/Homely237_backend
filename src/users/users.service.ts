@@ -45,6 +45,12 @@ export class UsersService {
     const updatedUser = await this.userModel.update(updateUserDto, {
       where: { id },
     });
-    return updatedUser;
+    if (updatedUser) {
+      return await this.userModel.findOne({
+        where: {
+          id,
+        },
+      });
+    }
   }
 }
