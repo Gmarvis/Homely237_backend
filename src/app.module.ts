@@ -12,6 +12,8 @@ import { ReviewsModule } from './reviews/reviews.module';
 import { Review } from './reviews/models/review.model';
 import { AppointmentsModule } from './appointments/appointments.module';
 import { Appointment } from './appointments/models/appointment.model';
+import { RatingsModule } from './ratings/ratings.module';
+import { Rating } from './ratings/models/rating.model';
 
 @Module({
   imports: [
@@ -33,13 +35,14 @@ import { Appointment } from './appointments/models/appointment.model';
 
       autoLoadModels: true,
       synchronize: true,
-      models: [User, Product, Category, Review, Appointment],
+      models: [User, Product, Category, Review, Appointment, Rating],
     }),
     UsersModule,
     ProductsModule,
     CategoriesModule,
     ReviewsModule,
     AppointmentsModule,
+    RatingsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

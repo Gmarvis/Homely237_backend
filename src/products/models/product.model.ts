@@ -40,7 +40,7 @@ export class Product extends Model {
     type: DataTypes.ARRAY(DataTypes.STRING),
     allowNull: false,
   })
-  image: [];
+  image: string[];
 
   @Column
   rating: number;
