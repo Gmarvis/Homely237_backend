@@ -31,6 +31,10 @@ export class CreateUserDto {
 
   @IsString()
   @IsOptional()
+  bio: string;
+
+  @IsString()
+  @IsOptional()
   idCard_image_front: string;
 
   @IsString()

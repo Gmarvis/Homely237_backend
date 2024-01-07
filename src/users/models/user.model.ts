@@ -46,6 +46,9 @@ export class User extends Model {
   location_plan: string;
 
   @Column
+  bio: string;
+
+  @Column
   idCard_image_front: string;
 
   @Column
@@ -60,10 +63,6 @@ export class User extends Model {
     defaultValue: Role.USER,
   })
   role: Role;
-
-  // @ForeignKey(() => Product)
-  // @Column
-  // Product_id: string;
 
   @HasMany(() => Product)
   products: Product[];
