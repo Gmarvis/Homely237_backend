@@ -4,6 +4,14 @@ import { AppService } from './app.service';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { UsersModule } from './users/users.module';
 import { User } from './users/models/user.model';
+import { ProductsModule } from './products/products.module';
+import { Product } from './products/models/product.model';
+import { CategoriesModule } from './categories/categories.module';
+import { Category } from './categories/models/category.model';
+import { ReviewsModule } from './reviews/reviews.module';
+import { Review } from './reviews/models/review.model';
+import { AppointmentsModule } from './appointments/appointments.module';
+import { Appointment } from './appointments/models/appointment.model';
 
 @Module({
   imports: [
@@ -14,11 +22,24 @@ import { User } from './users/models/user.model';
       username: 'root',
       password: 'Password123#@!',
       database: 'homely237',
+
+      // DB4FREE CONNECTION
+      // host: 'db4free.net',
+      // port: 3306,
+      // username: 'homely237',
+      // password: 'homely237',
+      // database: 'homely237',
+      // DB4FREE CONNECTION
+
       autoLoadModels: true,
       synchronize: true,
-      models: [User],
+      models: [User, Product, Category, Review, Appointment],
     }),
     UsersModule,
+    ProductsModule,
+    CategoriesModule,
+    ReviewsModule,
+    AppointmentsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

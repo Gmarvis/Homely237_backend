@@ -20,4 +20,32 @@ export class UpdateUserDto {
   @IsString()
   @IsOptional()
   location: string;
+
+  @IsString()
+  @IsOptional()
+  image: string;
+
+  @IsString()
+  @IsOptional()
+  location_plan: string;
+
+  @IsString()
+  @IsOptional()
+  bio: string;
+
+  @IsString()
+  @IsOptional()
+  idCard_image_front: string;
+
+  @IsString()
+  @IsOptional()
+  idCard_image_back: string;
+
+  @IsString()
+  @IsOptional()
+  service_title: string;
+
+  @IsString()
+  @IsOptional()
+  role: string;
 }

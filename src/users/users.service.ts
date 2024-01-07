@@ -35,9 +35,12 @@ export class UsersService {
   }
 
   // FIND AND DELETE USER
-  async remove(id: string): Promise<void> {
-    const user = await this.findOne(id);
-    await user.destroy();
+  async remove(id: string): Promise<any> {
+    return await this.userModel.destroy({
+      where: {
+        id,
+      },
+    });
   }
 
   // FIND AND UPDATE USER
@@ -45,6 +48,12 @@ export class UsersService {
     const updatedUser = await this.userModel.update(updateUserDto, {
       where: { id },
     });
-    return updatedUser;
+    if (updatedUser) {
+      return await this.userModel.findOne({
+        where: {
+          id,
+        },
+      });
+    }
   }
 }
