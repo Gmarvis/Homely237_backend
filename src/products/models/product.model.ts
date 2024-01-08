@@ -1,9 +1,11 @@
 import { DataTypes } from 'sequelize';
+
 import {
   BelongsTo,
   Column,
   ForeignKey,
   HasMany,
+  // DataType,
   IsUUID,
   Model,
   PrimaryKey,
@@ -36,17 +38,14 @@ export class Product extends Model {
   @Column
   name: string;
 
-  @Column({
-    type: DataTypes.ARRAY(DataTypes.STRING),
-    allowNull: false,
-  })
-  image: string[];
+  @Column
+  image: string;
 
   @Column
-  rating: number;
+  rating: string;
 
   @Column
-  price: number;
+  price: string;
 
   @Column
   description: string;

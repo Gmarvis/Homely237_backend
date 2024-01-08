@@ -10,6 +10,8 @@ import {
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/createUserDto';
 import { UpdateUserDto } from './dto/updateUserDto';
+import { SignUpDto } from './dto/signUp.dto';
+import { LoginDto } from './dto/login.dto';
 // import { User } from './models/user.model';
 
 @Controller('users')
@@ -20,6 +22,18 @@ export class UsersController {
   create(@Body() createUserDto: CreateUserDto) {
     console.log('user from controller:', createUserDto);
     return this.usersSercive.createUser(createUserDto);
+  }
+
+  // SIGNUP
+  @Post('/signup')
+  signUP(@Body() signUpDto: SignUpDto) {
+    return this.usersSercive.signUp(signUpDto);
+  }
+
+  // LOGIN
+  @Get('/login')
+  login(@Body() loginDto: LoginDto) {
+    return this.usersSercive.login(loginDto);
   }
 
   // GET ALL USERS

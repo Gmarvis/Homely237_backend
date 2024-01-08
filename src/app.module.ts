@@ -14,9 +14,15 @@ import { AppointmentsModule } from './appointments/appointments.module';
 import { Appointment } from './appointments/models/appointment.model';
 import { RatingsModule } from './ratings/ratings.module';
 import { Rating } from './ratings/models/rating.model';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      envFilePath: '.env',
+      isGlobal: true,
+    }),
+
     SequelizeModule.forRoot({
       dialect: 'mysql',
       host: 'localhost',
