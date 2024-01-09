@@ -1,14 +1,19 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { User } from './models/user.model';
 import { CreateUserDto } from './dto/createUserDto';
 import { UpdateUserDto } from './dto/updateUserDto';
+import { SignUpDto } from './dto/signUp.dto';
+import * as bcrypt from 'bcrypt';
+import { JwtService } from '@nestjs/jwt';
+import { LoginDto } from './dto/login.dto';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectModel(User)
     private userModel: typeof User,
+    private jwtService: JwtService,
   ) {}
   // CREATE NEW USER
   async createUser(createUserDto: CreateUserDto): Promise<User> {
@@ -18,6 +23,58 @@ export class UsersService {
       email: createUserDto.email,
       password: createUserDto.password,
     });
+  }
+
+  // SIGNUP USER
+  async signUp(signUpDto: SignUpDto): Promise<{ token: string }> {
+    const { name, email, password, phone } = signUpDto;
+
+    const existingUser = await this.userModel.findOne({
+      where: {
+        email,
+      },
+    });
+
+    if (existingUser) {
+      throw new UnauthorizedException('email aready exist');
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const user = await this.userModel.create({
+      name,
+      email,
+      phone,
+      password: hashedPassword,
+    });
+
+    const token = this.jwtService.sign({ id: user.id });
+
+    return { token };
+  }
+
+  // LOGIN
+  async login(loginDto: LoginDto) {
+    const { email, password } = loginDto;
+    const user = await this.userModel.findOne({
+      where: {
+        email,
+      },
+    });
+
+    if (!user) {
+      throw new UnauthorizedException('invalid email');
+    }
+
+    const isPasswordMatched = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordMatched) {
+      throw new UnauthorizedException('invalid email or password');
+    }
+
+    const token = this.jwtService.sign({ id: user.id });
+
+    return { token };
   }
 
   // FETCH ALL USERS

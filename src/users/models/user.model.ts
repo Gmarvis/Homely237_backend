@@ -8,6 +8,7 @@ import {
 } from 'sequelize-typescript';
 import { DataTypes } from 'sequelize';
 import { Product } from 'src/products/models/product.model';
+import { Exclude } from 'class-transformer';
 
 enum Role {
   ADMIN = 'admin',
@@ -31,6 +32,7 @@ export class User extends Model {
   email: string;
 
   @Column
+  @Exclude()
   password: string;
 
   @Column
