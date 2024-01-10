@@ -6,6 +6,8 @@ import {
   Put,
   Param,
   Delete,
+  // UseInterceptors,
+  // ClassSerializerInterceptor,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/createUserDto';
@@ -43,9 +45,11 @@ export class UsersController {
   }
 
   // FIND USER BY ID
+  // @UseInterceptors(ClassSerializerInterceptor)
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  async findOne(@Param('id') id: string) {
     return this.usersSercive.findOne(id);
+    // return new CreateUserDto(user);
   }
 
   // FIND AND UPDATE USER

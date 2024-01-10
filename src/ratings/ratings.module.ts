@@ -8,5 +8,6 @@ import { Rating } from './models/rating.model';
   imports: [SequelizeModule.forFeature([Rating])],
   controllers: [RatingsController],
   providers: [RatingsService],
+  exports: [SequelizeModule],
 })
 export class RatingsModule {}
