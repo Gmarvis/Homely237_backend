@@ -66,4 +66,9 @@ export class UsersController {
   removeUser(@Param('id') id: string) {
     return this.usersSercive.remove(id);
   }
+
+  @Get('/verify/:token')
+  verify(@Param('token') token: string) {
+    return this.verify(token);
+  }
 }
