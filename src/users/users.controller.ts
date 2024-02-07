@@ -33,8 +33,10 @@ export class UsersController {
   }
 
   // LOGIN
-  @Get('/login')
+  @Post('/login')
   login(@Body() loginDto: LoginDto) {
+    console.log('user login,', loginDto);
+
     return this.usersSercive.login(loginDto);
   }
 
@@ -65,5 +67,10 @@ export class UsersController {
   @Delete(':id')
   removeUser(@Param('id') id: string) {
     return this.usersSercive.remove(id);
+  }
+
+  @Get('/verify/:token')
+  verify(@Param('token') token: string) {
+    return this.verify(token);
   }
 }

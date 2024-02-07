@@ -48,7 +48,20 @@ export class UsersService {
       password: hashedPassword,
     });
 
-    const token = this.jwtService.sign({ id: user.id });
+    const userData = await this.userModel.findOne({
+      where: {
+        id: user.id,
+      },
+    });
+
+    for (const key in userData) {
+      if (key === 'password') {
+        delete userData[key];
+      }
+    }
+
+    console.log('userData', userData);
+    const token = this.jwtService.sign({ user: { ...userData } });
 
     return { token };
   }
@@ -72,9 +85,24 @@ export class UsersService {
       throw new UnauthorizedException('invalid email or password');
     }
 
-    const token = this.jwtService.sign({ id: user.id });
+    const userData = await this.userModel.findOne({
+      where: {
+        id: user.id,
+      },
+    });
 
-    return { token };
+    if (userData) {
+      for (const key in userData) {
+        if (key === 'password') {
+          delete userData[key];
+        }
+      }
+
+      // console.log('userData', userData);
+      const token = this.jwtService.sign({ user: { ...userData } });
+
+      return { token };
+    }
   }
 
   // FETCH ALL USERS
@@ -112,5 +140,11 @@ export class UsersService {
         },
       });
     }
+  }
+
+  // GET USER MY TOKEN
+  async getUserByToken(token: string) {
+    const id = this.jwtService.verify(token);
+    console.log('id', id);
   }
 }
