@@ -33,8 +33,10 @@ export class UsersController {
   }
 
   // LOGIN
-  @Get('/login')
+  @Post('/login')
   login(@Body() loginDto: LoginDto) {
+    console.log('user login,', loginDto);
+
     return this.usersSercive.login(loginDto);
   }
 

@@ -91,16 +91,18 @@ export class UsersService {
       },
     });
 
-    for (const key in userData) {
-      if (key === 'password') {
-        delete userData[key];
+    if (userData) {
+      for (const key in userData) {
+        if (key === 'password') {
+          delete userData[key];
+        }
       }
+
+      // console.log('userData', userData);
+      const token = this.jwtService.sign({ user: { ...userData } });
+
+      return { token };
     }
-
-    console.log('userData', userData);
-    const token = this.jwtService.sign({ user: { ...userData } });
-
-    return { token };
   }
 
   // FETCH ALL USERS
