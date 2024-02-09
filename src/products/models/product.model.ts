@@ -5,7 +5,7 @@ import {
   Column,
   ForeignKey,
   HasMany,
-  // DataType,
+  DataType,
   IsUUID,
   Model,
   PrimaryKey,
@@ -38,8 +38,14 @@ export class Product extends Model {
   @Column
   name: string;
 
+  @Column({
+    type: DataType.JSON,
+    // allowNull: false,
+  })
+  images: string[];
+
   @Column
-  image: string;
+  product_image: string;
 
   @Column
   rating: string;

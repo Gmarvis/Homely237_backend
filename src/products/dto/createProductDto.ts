@@ -1,13 +1,16 @@
-import { IsNotEmpty, IsString, IsEmail } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateProductDto {
   @IsString()
   @IsNotEmpty()
   name: string;
 
-  @IsEmail()
   @IsNotEmpty()
-  image: [];
+  images: [];
+
+  @IsString()
+  @IsNotEmpty()
+  product_image: string;
 
   @IsString()
   @IsNotEmpty()
