@@ -67,8 +67,8 @@ export class ProductsService {
   }
 
   // FIND BY USER_ID
-  async findByUserId(id: string): Promise<Product> {
-    return this.productModel.findOne({
+  async findByUserId(id: string): Promise<Product[]> {
+    return this.productModel.findAll({
       where: {
         user_id: id,
       },
@@ -79,8 +79,8 @@ export class ProductsService {
   }
 
   // FIND BY Cathegory
-  async findByCathegory(id: string): Promise<Product> {
-    return this.productModel.findOne({
+  async findByCathegory(id: string): Promise<Product[]> {
+    return this.productModel.findAll({
       where: {
         category_id: id,
       },
