@@ -11,5 +11,9 @@ export class UpdateAppointmentDto {
 
   @IsString()
   @IsOptional()
+  data: string;
+
+  @IsString()
+  @IsOptional()
   status: string;
 }

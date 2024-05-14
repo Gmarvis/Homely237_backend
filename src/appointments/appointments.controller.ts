@@ -9,6 +9,7 @@ export class AppointmentsController {
   //CREATE APPOINTMENT
   @Post()
   create(@Body() createAppointmentDto: CreateAppointmentDto) {
+    console.log('appoinment', createAppointmentDto);
     return this.appointmentsService.createAppointment(createAppointmentDto);
   }
 

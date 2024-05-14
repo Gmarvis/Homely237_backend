@@ -41,6 +41,9 @@ export class Appointment extends Model {
   @Column
   location: string;
 
+  @Column
+  date: string;
+
   @Column({
     type: DataTypes.ENUM(...Object.values(StatusType)),
     defaultValue: StatusType.PENDING,
