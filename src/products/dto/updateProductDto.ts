@@ -1,7 +1,14 @@
-import { IsString, IsOptional } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  MinLength,
+  Max,
+  MaxLength,
+} from 'class-validator';
 
 export class UpdateProductDto {
   @IsString()
+  @MinLength(5, { message: 'service name most not be less than 5 characters' })
   @IsOptional()
   name: string;
 
@@ -25,13 +32,17 @@ export class UpdateProductDto {
 
   @IsString()
   @IsOptional()
-  rating: number;
+  rating: string;
 
   @IsString()
   @IsOptional()
   category_id: string;
 
   @IsString()
+  @MinLength(60, { message: 'description most not be less than 60 characters' })
+  @MaxLength(250, {
+    message: 'description most not be less than 60 characters',
+  })
   @IsOptional()
   description: string;
 }
