@@ -41,12 +41,15 @@ export class ProductsService {
 
   // FIND AND DELETE USER
   async remove(id: string): Promise<any> {
-    return await this.productModel.destroy({
-      where: {
-        id,
-      },
-    });
-    // return await product.destroy();
+    try {
+      return await this.productModel.destroy({
+        where: {
+          id,
+        },
+      });
+    } catch (error) {
+      return error;
+    }
   }
 
   // FIND AND UPDATE
@@ -55,12 +58,13 @@ export class ProductsService {
       where: { id },
     });
     if (updatedProduct) {
-      return await this.productModel.findOne({
+      return this.productModel.findOne({
         where: {
           id,
-          include: {
-            model: User,
-          },
+        },
+        include: {
+          model: User,
+          // Category,
         },
       });
     }
