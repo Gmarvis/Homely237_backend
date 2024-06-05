@@ -25,7 +25,7 @@ export class CreateAppointmentDto {
   @IsNotEmpty()
   location: string;
 
-  @IsString()
-  @IsNotEmpty()
-  status: string;
+  // @IsString()
+  // @IsNotEmpty()
+  // status: string;
 }
