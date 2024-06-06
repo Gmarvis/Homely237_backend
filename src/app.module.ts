@@ -39,7 +39,8 @@ import { ConfigModule } from '@nestjs/config';
       database: 'homely237',
       // DB4FREE CONNECTION
 
-      autoLoadModels: true,
+      // autoLoadModels: true,
+    
       synchronize: true,
       models: [User, Product, Category, Review, Appointment, Rating],
     }),
