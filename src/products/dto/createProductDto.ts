@@ -28,6 +28,14 @@ export class CreateProductDto {
   @IsNotEmpty()
   category_id: string;
 
+  // @IsString()
+  // @IsNotEmpty()
+  // city: string;
+
+  // @IsString()
+  // @IsNotEmpty()
+  // locality: string;
+
   @IsString()
   @IsNotEmpty()
   // @MinLength(60, { message: 'description most not be less than 60 characters' })

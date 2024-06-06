@@ -38,10 +38,9 @@ import { ConfigModule } from '@nestjs/config';
       password: 'homely237',
       database: 'homely237',
       // DB4FREE CONNECTION
-
-      // autoLoadModels: true,
-    
       synchronize: true,
+      retryDelay: 2000,
+      autoLoadModels: true,
       models: [User, Product, Category, Review, Appointment, Rating],
     }),
     UsersModule,
