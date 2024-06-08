@@ -39,6 +39,14 @@ export class UpdateProductDto {
   category_id: string;
 
   @IsString()
+  @IsOptional()
+  city: string;
+
+  @IsString()
+  @IsOptional()
+  locality: string;
+
+  @IsString()
   @MinLength(60, { message: 'description most not be less than 60 characters' })
   @MaxLength(250, {
     message: 'description most not be less than 60 characters',

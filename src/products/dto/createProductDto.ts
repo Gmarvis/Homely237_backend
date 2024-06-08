@@ -28,13 +28,13 @@ export class CreateProductDto {
   @IsNotEmpty()
   category_id: string;
 
-  // @IsString()
-  // @IsNotEmpty()
-  // city: string;
+  @IsString()
+  @IsNotEmpty()
+  city: string;
 
-  // @IsString()
-  // @IsNotEmpty()
-  // locality: string;
+  @IsString()
+  @IsNotEmpty()
+  locality: string;
 
   @IsString()
   @IsNotEmpty()

@@ -53,11 +53,11 @@ export class Product extends Model {
   @Column
   price: string;
 
-  // @Column
-  // city: string;
+  @Column
+  city: string;
 
-  // @Column
-  // locality: string;
+  @Column
+  locality: string;
 
   @Column
   description: string;
