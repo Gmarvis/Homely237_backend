@@ -39,7 +39,16 @@ export class Appointment extends Model {
   description: string;
 
   @Column
-  location: string;
+  city: string;
+
+  @Column
+  locality: string;
+
+  @Column
+  phone_number: string;
+
+  @Column
+  location_detials: string;
 
   @Column
   date: string;

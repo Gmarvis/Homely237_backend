@@ -16,7 +16,7 @@ export class AppointmentsController {
   // GET ALL APPOINTMENTS
   @Get()
   findAll() {
-    return this.appointmentsService.findAll();
+    return this.appointmentsService.findAll()
   }
 
   // FIND BY USER ID

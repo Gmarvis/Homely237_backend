@@ -23,7 +23,11 @@ export class CreateAppointmentDto {
 
   @IsString()
   @IsNotEmpty()
-  location: string;
+  phone_number: string;
+
+  @IsString()
+  @IsNotEmpty()
+  location_detials: string;
 
   // @IsString()
   // @IsNotEmpty()

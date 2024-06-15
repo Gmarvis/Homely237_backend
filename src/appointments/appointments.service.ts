@@ -21,7 +21,11 @@ export class AppointmentsService {
 
   // FETCH ALL APPOINTMENTS
   async findAll(): Promise<Appointment[]> {
-    return this.appointmentModel.findAll();
+    return this.appointmentModel.findAll({
+      include: {
+        model: Product,
+      },
+    });
   }
 
   // FIND BY USER ID
