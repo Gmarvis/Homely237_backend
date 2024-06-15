@@ -4,7 +4,6 @@ import { Appointment } from './models/appointment.model';
 import { CreateAppointmentDto } from './dto/createAppointmentDto';
 import { UpdateAppointmentDto } from './dto/updateAppointmentDto';
 import { Product } from 'src/products/models/product.model';
-
 @Injectable()
 export class AppointmentsService {
   constructor(
