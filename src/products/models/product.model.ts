@@ -54,6 +54,12 @@ export class Product extends Model {
   price: string;
 
   @Column
+  city: string;
+
+  @Column
+  locality: string;
+
+  @Column
   description: string;
 
   @BelongsTo(() => Category)
