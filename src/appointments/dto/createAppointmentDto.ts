@@ -29,6 +29,14 @@ export class CreateAppointmentDto {
   @IsNotEmpty()
   location_detials: string;
 
+  @IsString()
+  @IsNotEmpty()
+  city: string;
+
+  @IsString()
+  @IsNotEmpty()
+  locality: string;
+
   // @IsString()
   // @IsNotEmpty()
   // status: string;

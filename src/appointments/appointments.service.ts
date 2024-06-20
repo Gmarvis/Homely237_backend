@@ -4,7 +4,7 @@ import { Appointment } from './models/appointment.model';
 import { CreateAppointmentDto } from './dto/createAppointmentDto';
 import { UpdateAppointmentDto } from './dto/updateAppointmentDto';
 import { Product } from 'src/products/models/product.model';
-
+import { User } from 'src/users/models/user.model';
 @Injectable()
 export class AppointmentsService {
   constructor(
@@ -16,6 +16,7 @@ export class AppointmentsService {
   async createAppointment(
     createAppointmentDto: CreateAppointmentDto,
   ): Promise<Appointment> {
+    // send emails to povoders for notification after booking i seccessfull
     return this.appointmentModel.create({ ...createAppointmentDto });
   }
 
@@ -35,7 +36,7 @@ export class AppointmentsService {
         user_id,
       },
       include: {
-        model: Product,
+        model: User,
       },
     });
   }
@@ -47,7 +48,7 @@ export class AppointmentsService {
         provider_id,
       },
       include: {
-        model: Product,
+        // model: User,
       },
     });
   }
@@ -59,7 +60,7 @@ export class AppointmentsService {
         id,
       },
       include: {
-        model: Product,
+        model: User,
       },
     });
   }
