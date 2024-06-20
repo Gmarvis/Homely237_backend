@@ -9,6 +9,7 @@ import {
   Table,
 } from 'sequelize-typescript';
 import { Product } from 'src/products/models/product.model';
+import { User } from 'src/users/models/user.model';
 
 enum StatusType {
   PENDING = 'pending',
@@ -25,6 +26,7 @@ export class Appointment extends Model {
   })
   id: string;
 
+  @ForeignKey(() => User)
   @Column
   user_id: string;
 
@@ -59,6 +61,7 @@ export class Appointment extends Model {
   })
   status: string;
 
-  @BelongsTo(() => Product)
-  product: Product;
+  @BelongsTo(() => User)
+  user: User;
 }
+
