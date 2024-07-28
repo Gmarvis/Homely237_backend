@@ -50,7 +50,7 @@ export class Appointment extends Model {
   phone_number: string;
 
   @Column
-  location_detials: string;
+  location_details: string;
 
   @Column
   date: string;

@@ -48,8 +48,8 @@ export class UpdateProductDto {
 
   @IsString()
   @MinLength(60, { message: 'description most not be less than 60 characters' })
-  @MaxLength(250, {
-    message: 'description most not be less than 60 characters',
+  @MaxLength(2000, {
+    message: 'description most not be more than 200 characters',
   })
   @IsOptional()
   description: string;

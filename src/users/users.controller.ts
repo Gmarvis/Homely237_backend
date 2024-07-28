@@ -18,18 +18,18 @@ import { LoginDto } from './dto/login.dto';
 
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersSercive: UsersService) {}
+  constructor(private readonly usersService: UsersService) {}
   // CREATE NEW USER
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
     console.log('user from controller:', createUserDto);
-    return this.usersSercive.createUser(createUserDto);
+    return this.usersService.createUser(createUserDto);
   }
 
   // SIGNUP
   @Post('/signup')
   signUP(@Body() signUpDto: SignUpDto) {
-    return this.usersSercive.signUp(signUpDto);
+    return this.usersService.signUp(signUpDto);
   }
 
   // LOGIN
@@ -37,20 +37,20 @@ export class UsersController {
   login(@Body() loginDto: LoginDto) {
     console.log('user login,', loginDto);
 
-    return this.usersSercive.login(loginDto);
+    return this.usersService.login(loginDto);
   }
 
   // GET ALL USERS
   @Get()
   getAllUsers() {
-    return this.usersSercive.findAll();
+    return this.usersService.findAll();
   }
 
   // FIND USER BY ID
   // @UseInterceptors(ClassSerializerInterceptor)
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return this.usersSercive.findOne(id);
+    return this.usersService.findOne(id);
     // return new CreateUserDto(user);
   }
 
@@ -60,13 +60,13 @@ export class UsersController {
     @Param('id') id: string,
     @Body() updateUserDto: UpdateUserDto,
   ) {
-    return this.usersSercive.updateUser(id, updateUserDto);
+    return this.usersService.updateUser(id, updateUserDto);
   }
 
   // FIND AND DELETE
   @Delete(':id')
   removeUser(@Param('id') id: string) {
-    return this.usersSercive.remove(id);
+    return this.usersService.remove(id);
   }
 
   @Get('/verify/:token')
