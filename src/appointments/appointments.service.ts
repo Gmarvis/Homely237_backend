@@ -16,7 +16,7 @@ export class AppointmentsService {
   async createAppointment(
     createAppointmentDto: CreateAppointmentDto,
   ): Promise<Appointment> {
-    // send emails to povoders for notification after booking i seccessfull
+    // send emails to providers for notification after booking i successful
     return this.appointmentModel.create({ ...createAppointmentDto });
   }
 
@@ -24,7 +24,7 @@ export class AppointmentsService {
   async findAll(): Promise<Appointment[]> {
     return this.appointmentModel.findAll({
       include: {
-        model: Product,
+        model: User,
       },
     });
   }
@@ -45,10 +45,10 @@ export class AppointmentsService {
   async findByProviderId(provider_id: string) {
     return this.appointmentModel.findAll({
       where: {
-        provider_id,
+        provider_id : provider_id,
       },
       include: {
-        // model: User,
+        model: User,
       },
     });
   }

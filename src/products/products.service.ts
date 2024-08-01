@@ -17,7 +17,7 @@ export class ProductsService {
     return this.productModel.create({ ...createProductDto });
   }
 
-  // FETCH ALL PRUDUCTS
+  // FETCH ALL PRODUCTS
   async findAll(): Promise<Product[]> {
     return this.productModel.findAll({
       include: {

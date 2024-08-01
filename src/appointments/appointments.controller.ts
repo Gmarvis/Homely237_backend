@@ -16,7 +16,7 @@ export class AppointmentsController {
   // GET ALL APPOINTMENTS
   @Get()
   findAll() {
-    return this.appointmentsService.findAll()
+    return this.appointmentsService.findAll();
   }
 
   // FIND BY USER ID
@@ -25,10 +25,17 @@ export class AppointmentsController {
     return this.appointmentsService.findByUserId(id);
   }
 
+  //  Find appointment by appointment id
+  @Get('/:id')
+  async findByAppointmentId(@Param('id') id: string) {
+    console.log("targeted")
+    return this.appointmentsService.findOne(id);
+  }
+
   // FIND BY PROVIDER ID
   @Get('/provider/:id')
   async findByProviderId(@Param('id') id: string) {
-    return this.appointmentsService.findByUserId(id);
+    return this.appointmentsService.findByProviderId(id);
   }
 
   // UPDATE APPOINTMENT
