@@ -25,22 +25,15 @@ import { ConfigModule } from '@nestjs/config';
 
     SequelizeModule.forRoot({
       dialect: 'mysql',
-      // host: 'localhost',
-      // port: 3306,
-      // username: 'root',
-      // password: 'Password123#@!',
-      // database: 'homely237',
-
-      // DB4FREE CONNECTION
-      host: 'db4free.net',
+      host: "db4free.net",
       port: 3306,
-      username: 'homely237',
-      password: 'homely237',
-      database: 'homely237',
-      // DB4FREE CONNECTION
+      username: "homely237",
+      password: "homely237",
+      database: "homely237",
+
       synchronize: true,
       retryDelay: 2000,
-      autoLoadModels: true,
+      // autoLoadModels: true,
       models: [User, Product, Category, Review, Appointment, Rating],
     }),
     UsersModule,
