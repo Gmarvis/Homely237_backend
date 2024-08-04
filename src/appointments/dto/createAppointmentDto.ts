@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class CreateAppointmentDto {
   @IsString()
@@ -26,7 +26,7 @@ export class CreateAppointmentDto {
   phone_number: string;
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   location_details: string;
 
   @IsString()
@@ -34,7 +34,7 @@ export class CreateAppointmentDto {
   city: string;
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   locality: string;
 
   // @IsString()

@@ -1,4 +1,9 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { User } from './models/user.model';
 import { CreateUserDto } from './dto/createUserDto';
@@ -36,7 +41,7 @@ export class UsersService {
     });
 
     if (existingUser) {
-      throw new UnauthorizedException('email aready exist');
+      throw new UnauthorizedException('email already exist');
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -146,5 +151,33 @@ export class UsersService {
   async getUserByToken(token: string) {
     const id = this.jwtService.verify(token);
     console.log('id', id);
+  }
+
+  // Create provider
+  async createServiceProvider(
+    id: string,
+    updateUserDto: UpdateUserDto,
+  ): Promise<User> {
+    try {
+      const numberOfAffectedRoles = await this.userModel.update(updateUserDto, {
+        where: { id },
+        returning: true,
+      });
+      if (numberOfAffectedRoles[1]) {
+        return this.userModel.findOne({
+          where: {
+            id,
+          },
+        });
+      } else {
+        throw new NotFoundException(`user with ID ${id} not found`);
+      }
+    } catch (error) {
+      throw new InternalServerErrorException({
+        error: 'error creating service provider',
+        status: 404,
+        message: error.message,
+      });
+    }
   }
 }

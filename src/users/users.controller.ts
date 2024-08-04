@@ -6,6 +6,7 @@ import {
   Put,
   Param,
   Delete,
+  Query,
   // UseInterceptors,
   // ClassSerializerInterceptor,
 } from '@nestjs/common';
@@ -55,7 +56,7 @@ export class UsersController {
   }
 
   // FIND AND UPDATE USER
-  @Put(':id')
+  @Put('/update/:id')
   async updateUser(
     @Param('id') id: string,
     @Body() updateUserDto: UpdateUserDto,
@@ -72,5 +73,15 @@ export class UsersController {
   @Get('/verify/:token')
   verify(@Param('token') token: string) {
     return this.verify(token);
+  }
+
+  // Create Provider
+  @Put('/create')
+  async createServiceProvider(
+    @Query('user_id') user_id: string,
+    @Body() updateUser: UpdateUserDto,
+  ) {
+    console.log("creating user")
+    return this.usersService.createServiceProvider(user_id, updateUser);
   }
 }

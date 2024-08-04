@@ -1,5 +1,11 @@
 import { IsString, IsEmail, IsOptional } from 'class-validator';
 
+enum Role {
+  ADMIN = 'admin',
+  USER = 'user',
+  PROVIDER = 'provider',
+}
+
 export class UpdateUserDto {
   @IsString()
   @IsOptional()
@@ -47,5 +53,5 @@ export class UpdateUserDto {
 
   @IsString()
   @IsOptional()
-  role: string;
+  role: Role;
 }
