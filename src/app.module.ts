@@ -25,11 +25,11 @@ import { ConfigModule } from '@nestjs/config';
 
     SequelizeModule.forRoot({
       dialect: 'mysql',
-      host: "db4free.net",
-      port: 3306,
-      username: "homely237",
-      password: "homely237",
-      database: "homely237",
+      host: process.env.DATABASE_HOST,
+      port: +process.env.PORT ,
+      username: process.env.DATABASE_USERNAME,
+      password: process.env.DATABASE_PASSWORD,
+      database: process.env.DATABASE,
 
       synchronize: true,
       retryDelay: 2000,
