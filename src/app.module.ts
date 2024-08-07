@@ -26,7 +26,7 @@ import { ConfigModule } from '@nestjs/config';
     SequelizeModule.forRoot({
       dialect: 'mysql',
       host: process.env.DATABASE_HOST,
-      port: +process.env.PORT ,
+      port: 3306,
       username: process.env.DATABASE_USERNAME,
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE,
