@@ -15,12 +15,37 @@ import { Appointment } from './appointments/models/appointment.model';
 import { RatingsModule } from './ratings/ratings.module';
 import { Rating } from './ratings/models/rating.model';
 import { ConfigModule } from '@nestjs/config';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { EmailServiceModule } from './email-server/email-server.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       envFilePath: '.env',
       isGlobal: true,
+    }),
+
+
+    /**
+     * email server configurations with nodemailer
+     * 
+     * this config uses nodemailer and an SMPT platform
+     * link to helpful resources {@link: https://www.freecodecamp.org/news/how-to-use-nodemailer-in-nestjs/}
+     */
+    
+    // setup email service 
+    MailerModule.forRoot({
+      transport: {
+        host: process.env.EMAIL_HOST,
+        port: 587,
+        secure: false, // true for 465, false for other ports
+        auth: {
+          user: process.env.EMAIL_USER_NAME,
+          pass: process.env.EMAIL_PASSWORD,
+        },
+        logger: true, // Enable detailed logs
+        debug: true, // Enable debug output
+      },
     }),
 
     SequelizeModule.forRoot({
@@ -42,6 +67,7 @@ import { ConfigModule } from '@nestjs/config';
     ReviewsModule,
     AppointmentsModule,
     RatingsModule,
+    EmailServiceModule,
   ],
   controllers: [AppController],
   providers: [AppService],
