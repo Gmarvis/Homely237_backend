@@ -9,5 +9,6 @@ async function bootstrap() {
   });
   app.useGlobalPipes(new ValidationPipe());
   await app.listen(4000);
+  console.log("🚀server is up an running on port 4000🚀")
 }
 bootstrap();

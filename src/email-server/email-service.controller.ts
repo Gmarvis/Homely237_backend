@@ -5,20 +5,14 @@ import { EmailService } from './email-server.service';
 export class EmailController {
   constructor(private readonly emailService: EmailService) {}
 
-  @Get()
-  async sendEmail(@Res() res: any) {
-    const mail = await this.emailService.sendEmail({
-      from: 'Sam Gmarvis <sgmarvis@gmail.com>',
-      to: 'inforsamgmarvis@gmail.com' ,
-      subject: 'Greetings From Homygig',
-      text: 'Thank you joining us at homygig where we grow our business together',
-    });
+  // @Get("/test")
+  // async sentTestEmail(){
+  //   return this.emailService.sendTestEmail({
+  //     receiver: 'sgmarvis@gmail.com',
+  //     subject: 'hello homygig',
+  //     text: 'homygig response'
+  //   })
+  // }
 
-    console.log(mail);
 
-    return res.status(200).json({
-      message: 'successful',
-      mail,
-    });
-  }
 }
