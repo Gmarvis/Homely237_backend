@@ -5,7 +5,7 @@ config()
 export const DATABASE_HOST = process.env.DATABASE_HOST
 export const DATABASE_USERNAME = process.env.DATABASE_USERNAME
 export const DATABASE_NAME = process.env.DATABASE_NAME
-export const DATABASE_PASSWORD = process.env.DATABASE_PASSWORD
+export const DATABASE_PASSWORD = process.env.DATABASE_PASSWORD || "homely237"
 export const DATABASE = process.env.DATABASE
 export const PORT = process.env.PORT
 
