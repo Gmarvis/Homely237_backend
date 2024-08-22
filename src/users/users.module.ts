@@ -6,19 +6,20 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { User } from './models/user.model';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
+import { JWT_EXPIRES, JWT_SECRET } from 'src/Environment.config';
+import { EmailService } from 'src/email-server/email-server.service';
 // import { config } from 'process';
-import { ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.registerAsync({
-      inject: [ConfigService],
-      useFactory: (config: ConfigService) => {
+      inject: [],
+      useFactory: () => {
         return {
-          secret: config.get<string>('JWT_SECRET'),
+          secret: JWT_SECRET,
           signOptions: {
-            expiresIn: config.get<string | number>('JWT_EXPIRES'),
+            expiresIn: JWT_EXPIRES
           },
         };
       },
@@ -26,7 +27,7 @@ import { ConfigService } from '@nestjs/config';
     SequelizeModule.forFeature([User]),
   ],
   controllers: [UsersController],
-  providers: [UsersService],
+  providers: [UsersService, EmailService],
   exports: [SequelizeModule],
 })
 export class UsersModule {}

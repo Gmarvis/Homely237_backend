@@ -1,0 +1,1 @@
+export const MAILER_SEND_api = process.env.MAILER_SEND_API

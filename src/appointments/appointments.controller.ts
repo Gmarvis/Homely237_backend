@@ -28,7 +28,7 @@ export class AppointmentsController {
   //  Find appointment by appointment id
   @Get('/:id')
   async findByAppointmentId(@Param('id') id: string) {
-    console.log("targeted")
+    // console.log("targeted")
     return this.appointmentsService.findOne(id);
   }
 

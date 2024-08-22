@@ -12,6 +12,8 @@ import { SignUpDto } from './dto/signUp.dto';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { LoginDto } from './dto/login.dto';
+import { EmailService } from 'src/email-server/email-server.service';
+import { CLIENT_APP_URL } from 'src/Environment.config';
 
 @Injectable()
 export class UsersService {
@@ -19,6 +21,7 @@ export class UsersService {
     @InjectModel(User)
     private userModel: typeof User,
     private jwtService: JwtService,
+    private readonly emailService: EmailService
   ) {}
   // CREATE NEW USER
   async createUser(createUserDto: CreateUserDto): Promise<User> {
@@ -67,6 +70,17 @@ export class UsersService {
 
     console.log('userData', userData);
     const token = this.jwtService.sign({ user: { ...userData } });
+
+    // use Emailservice to send Email
+    await this.emailService.sendEmail({
+      receiver: userData.email,
+      subject: "welcome to homygig",
+      text: "Thank you for signing up to homygig",
+      html: {
+        templateName: "welcome",
+        options: {name: userData.name, redirect_url: CLIENT_APP_URL}
+      }
+    })
 
     return { token };
   }
