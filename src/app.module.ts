@@ -14,15 +14,12 @@ import { AppointmentsModule } from './appointments/appointments.module';
 import { Appointment } from './appointments/models/appointment.model';
 import { RatingsModule } from './ratings/ratings.module';
 import { Rating } from './ratings/models/rating.model';
-import { ConfigModule } from '@nestjs/config';
+import { EmailServiceModule } from './email-server/email-server.module';
+import { EmailService } from './email-server/email-server.service';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      envFilePath: '.env',
-      isGlobal: true,
-    }),
-
+   
     SequelizeModule.forRoot({
       dialect: 'mysql',
       host: process.env.DATABASE_HOST,
@@ -30,7 +27,6 @@ import { ConfigModule } from '@nestjs/config';
       username: process.env.DATABASE_USERNAME,
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE,
-
       synchronize: true,
       retryDelay: 2000,
       // autoLoadModels: true,
@@ -42,8 +38,9 @@ import { ConfigModule } from '@nestjs/config';
     ReviewsModule,
     AppointmentsModule,
     RatingsModule,
+    EmailServiceModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, EmailService],
 })
 export class AppModule {}

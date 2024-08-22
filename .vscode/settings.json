@@ -1,0 +1,13 @@
+{
+    "cSpell.words": [
+        "Emailservice",
+        "Gmarvis",
+        "Homygig"
+    ],
+    "powermode.enabled": true,
+    "powermode.shake.enabled": false,
+    "postman.telemetry.enabled": false,
+    "powermode.explosions.enabled": true,
+    "powermode.combo.location": "off",
+    "powermode.combo.counterEnabled": "hide"
+}
