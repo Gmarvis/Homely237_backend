@@ -16,17 +16,17 @@ import { RatingsModule } from './ratings/ratings.module';
 import { Rating } from './ratings/models/rating.model';
 import { EmailServiceModule } from './email-server/email-server.module';
 import { EmailService } from './email-server/email-server.service';
+import { DATABASE, DATABASE_PASSWORD, DATABASE_USERNAME } from './Environment.config';
 
 @Module({
   imports: [
-   
     SequelizeModule.forRoot({
       dialect: 'mysql',
       host: process.env.DATABASE_HOST,
       port: 3306,
-      username: process.env.DATABASE_USERNAME,
-      password: process.env.DATABASE_PASSWORD,
-      database: process.env.DATABASE,
+      username: DATABASE_USERNAME,
+      password: DATABASE_PASSWORD,
+      database: DATABASE,
       synchronize: true,
       retryDelay: 2000,
       // autoLoadModels: true,
