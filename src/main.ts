@@ -11,6 +11,7 @@ async function bootstrap() {
     // logger: console,
   });
   app.useGlobalPipes(new ValidationPipe());
+
   await app.listen(port);
   console.log(`🚀server is up an running on port ${port}`)
 }
