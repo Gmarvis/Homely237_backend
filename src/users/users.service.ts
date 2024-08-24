@@ -14,6 +14,7 @@ import { JwtService } from '@nestjs/jwt';
 import { LoginDto } from './dto/login.dto';
 import { EmailService } from 'src/email-server/email-server.service';
 import { CLIENT_APP_URL } from 'src/Environment.config';
+import { WELCOME_PROVIDER_TEMPLATE } from 'src/email-server/templates';
 
 @Injectable()
 export class UsersService {
@@ -21,7 +22,7 @@ export class UsersService {
     @InjectModel(User)
     private userModel: typeof User,
     private jwtService: JwtService,
-    private readonly emailService: EmailService
+    private readonly emailService: EmailService,
   ) {}
   // CREATE NEW USER
   async createUser(createUserDto: CreateUserDto): Promise<User> {
@@ -69,19 +70,19 @@ export class UsersService {
     }
 
     console.log('userData', userData);
-    const token = this.jwtService.sign({ user: { ...userData } });
-
+    
     // use Emailservice to send Email
     await this.emailService.sendEmail({
       receiver: userData.email,
-      subject: "welcome to homygig",
-      text: "Thank you for signing up to homygig",
+      subject: 'welcome to homygig',
+      text: 'Thank you for signing up to homygig',
       html: {
-        templateName: "welcome",
-        options: {name: userData.name, redirect_url: CLIENT_APP_URL}
-      }
-    })
-
+        templateName: 'welcome',
+        options: { name: userData.name, action_url: CLIENT_APP_URL },
+      },
+    });
+    
+    const token = this.jwtService.sign({ user: { ...userData } });
     return { token };
   }
 
@@ -149,15 +150,34 @@ export class UsersService {
 
   // FIND AND UPDATE USER
   async updateUser(id: string, updateUserDto: UpdateUserDto) {
-    const updatedUser = await this.userModel.update(updateUserDto, {
-      where: { id },
-    });
-    if (updatedUser) {
-      return await this.userModel.findOne({
-        where: {
-          id,
-        },
+    try {
+      const updatedUser = await this.userModel.update(updateUserDto, {
+        where: { id },
       });
+      if (updatedUser) {
+        const userData = await this.userModel.findOne({
+          where: {
+            id,
+          },
+        });
+        // use Emailservice to send Email
+        await this.emailService.sendEmail({
+          receiver: userData.email,
+          subject: 'Homygig operations',
+          text: 'you are now a homygig service provider',
+          html: {
+            templateName: WELCOME_PROVIDER_TEMPLATE,
+            options: {
+              name: userData.name,
+              action_url: CLIENT_APP_URL + '/dashboard',
+            },
+          },
+        });
+        
+        return userData;
+      }
+    } catch (error) {
+      throw new UnauthorizedException(error);
     }
   }
 
@@ -178,11 +198,27 @@ export class UsersService {
         returning: true,
       });
       if (numberOfAffectedRoles[1]) {
-        return this.userModel.findOne({
+        const updatedUser = await this.userModel.findOne({
           where: {
             id,
           },
         });
+
+          // use Emailservice to send Email
+          await this.emailService.sendEmail({
+            receiver: updatedUser.email,
+            subject: 'Homygig operations',
+            text: 'you are now a homygig service provider',
+            html: {
+              templateName: WELCOME_PROVIDER_TEMPLATE,
+              options: {
+                name: updatedUser.name,
+                action_url: CLIENT_APP_URL + '/dashboard',
+              },
+            },
+          });
+
+        return updatedUser
       } else {
         throw new NotFoundException(`user with ID ${id} not found`);
       }

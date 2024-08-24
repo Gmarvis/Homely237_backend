@@ -17,6 +17,10 @@ import { Rating } from './ratings/models/rating.model';
 import { EmailServiceModule } from './email-server/email-server.module';
 import { EmailService } from './email-server/email-server.service';
 import { DATABASE, DATABASE_HOST, DATABASE_PASSWORD, DATABASE_USERNAME } from './Environment.config';
+import { Notification } from './notifications/models/notifications.model';
+import { AuthModule } from './auth/auth.module';
+import { AuthService } from './auth/auth.service';
+import { UsersService } from './users/users.service';
 
 @Module({
   imports: [
@@ -29,8 +33,8 @@ import { DATABASE, DATABASE_HOST, DATABASE_PASSWORD, DATABASE_USERNAME } from '.
       database: DATABASE,
       synchronize: true,
       retryDelay: 2000,
-      // autoLoadModels: true,
-      models: [User, Product, Category, Review, Appointment, Rating],
+      autoLoadModels: true,
+      models: [User, Product, Category, Review, Appointment, Rating, Notification],
     }),
     UsersModule,
     ProductsModule,
@@ -39,8 +43,9 @@ import { DATABASE, DATABASE_HOST, DATABASE_PASSWORD, DATABASE_USERNAME } from '.
     AppointmentsModule,
     RatingsModule,
     EmailServiceModule,
+    AuthModule,
   ],
   controllers: [AppController],
-  providers: [AppService, EmailService],
+  providers: [AppService, EmailService, AuthService, UsersService],
 })
 export class AppModule {}

@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   Query,
+  UseGuards,
   // UseInterceptors,
   // ClassSerializerInterceptor,
 } from '@nestjs/common';
@@ -15,6 +16,8 @@ import { CreateUserDto } from './dto/createUserDto';
 import { UpdateUserDto } from './dto/updateUserDto';
 import { SignUpDto } from './dto/signUp.dto';
 import { LoginDto } from './dto/login.dto';
+import { AuthGuard } from 'src/auth/auth.guard';
+// import { AuthGuard } from '@nestjs/passport';
 // import { User } from './models/user.model';
 
 @Controller('users')
@@ -49,6 +52,7 @@ export class UsersController {
 
   // FIND USER BY ID
   // @UseInterceptors(ClassSerializerInterceptor)
+  // @UseGuards(AuthGuard)
   @Get(':id')
   async findOne(@Param('id') id: string) {
     return this.usersService.findOne(id);
@@ -84,4 +88,5 @@ export class UsersController {
     console.log("creating user")
     return this.usersService.createServiceProvider(user_id, updateUser);
   }
+  
 }
