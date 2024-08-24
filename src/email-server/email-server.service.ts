@@ -30,8 +30,9 @@ export class EmailService {
           emailContent.html.options,
         ),
       });
-      return { status: 201, message: 'Email sent successfully' };
+      // console.log({ status: 201, message: 'Email sent successfully' });
     } catch (error) {
+      console.log('error sending email', error);
       throw new HttpException('error sending email', error);
     }
   }

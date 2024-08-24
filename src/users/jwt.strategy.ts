@@ -6,7 +6,7 @@ import { User } from './models/user.model';
 import { Model } from 'sequelize';
 
 // ===> ***********TODO*********<====|
-// finnish jwttoken validation
+// finnish jwt token validation
 // ===> ***********TODO*********<====|
 
 @Injectable()
@@ -16,13 +16,13 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     private userModel: Model<User>,
   ) {
     super({
-      // here we etract the jwt tolwn from the clients header, we sent during signup
+      // here we extract the jwt token from the clients header, we sent during signup
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       secretOrKey: process.env.JWT_SECRET,
     });
   }
 
-  // Now we overight the user infor with the user info
+  // Now we overwrite the user information with the user info
 
   async validate(payload) {
     // get id from the payload
