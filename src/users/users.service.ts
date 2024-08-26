@@ -205,18 +205,18 @@ export class UsersService {
         });
 
           // use Emailservice to send Email
-          await this.emailService.sendEmail({
-            receiver: updatedUser.email,
-            subject: 'Homygig operations',
-            text: 'you are now a homygig service provider',
-            html: {
-              templateName: WELCOME_PROVIDER_TEMPLATE,
-              options: {
-                name: updatedUser.name,
-                action_url: CLIENT_APP_URL + '/dashboard',
-              },
-            },
-          });
+          // await this.emailService.sendEmail({
+          //   receiver: updatedUser.email,
+          //   subject: 'Homygig operations',
+          //   text: 'you are now a homygig service provider',
+          //   html: {
+          //     templateName: WELCOME_PROVIDER_TEMPLATE,
+          //     options: {
+          //       name: updatedUser.name,
+          //       action_url: CLIENT_APP_URL + '/dashboard',
+          //     },
+          //   },
+          // });
 
         return updatedUser
       } else {
