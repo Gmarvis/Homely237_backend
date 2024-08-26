@@ -1,10 +1,9 @@
 import { IsBoolean, IsNotEmpty, IsObject, IsOptional, IsString } from 'class-validator';
-import { ENUM } from 'sequelize';
 
 export class SendNotificationDto {
   @IsNotEmpty()
   @IsString()
-  id: string;
+  recipient_id: string;
 
   @IsNotEmpty()
   @IsString()
@@ -15,14 +14,14 @@ export class SendNotificationDto {
 
   @IsNotEmpty()
   @IsString()
-  body: string;
+  body?: string;
 
   @IsOptional() 
-  appointment_id: string
+  appointment_id?: string
 
-  @IsNotEmpty()
-  @IsBoolean()
-  read_status: Boolean;
+  // @IsNotEmpty()
+  // @IsBoolean()
+  // read_status: Boolean;
 }
 
  interface Recipient {

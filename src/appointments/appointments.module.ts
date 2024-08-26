@@ -3,6 +3,7 @@ import { AppointmentsController } from './appointments.controller';
 import { AppointmentsService } from './appointments.service';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { Appointment } from './models/appointment.model';
+import { NotificationService } from 'src/notification/notification.service';
 
 @Module({
   imports: [SequelizeModule.forFeature([Appointment])],

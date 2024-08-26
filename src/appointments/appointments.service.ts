@@ -5,8 +5,11 @@ import { CreateAppointmentDto } from './dto/createAppointmentDto';
 import { UpdateAppointmentDto } from './dto/updateAppointmentDto';
 import { Product } from 'src/products/models/product.model';
 import { User } from 'src/users/models/user.model';
+import { NotificationService } from 'src/notification/notification.service';
+
 @Injectable()
 export class AppointmentsService {
+  private notificationService: NotificationService
   constructor(
     @InjectModel(Appointment)
     private appointmentModel: typeof Appointment,
@@ -17,7 +20,20 @@ export class AppointmentsService {
     createAppointmentDto: CreateAppointmentDto,
   ): Promise<Appointment> {
     // send emails to providers for notification after booking i successful
-    return this.appointmentModel.create({ ...createAppointmentDto });
+    const appointment: Appointment = await this.appointmentModel.create({
+      ...createAppointmentDto,
+    });
+
+    // if (appointment.id) {
+    //   await this.notificationService.sendNotifications(NotificationType.PUSH, {
+    //     recipient_id: appointment.provider_id,
+    //     title: 'You have an new appointment',
+    //     appointment_id: appointment.id,
+    //     body: `${appointment.user.name} sent you an appointment`,
+    //     type: NotificationType.PUSH,
+    //   });
+    // }
+    return appointment;
   }
 
   // FETCH ALL APPOINTMENTS
@@ -38,6 +54,7 @@ export class AppointmentsService {
       include: {
         model: User,
       },
+      order: [['updatedAt', 'DESC']]
     });
   }
 
@@ -45,11 +62,12 @@ export class AppointmentsService {
   async findByProviderId(provider_id: string) {
     return this.appointmentModel.findAll({
       where: {
-        provider_id : provider_id,
+        provider_id: provider_id,
       },
       include: {
         model: User,
       },
+      order: [['updatedAt', 'DESC']]
     });
   }
 
@@ -79,7 +97,7 @@ export class AppointmentsService {
           id,
         },
         include: {
-          model: Product,
+          model: User,
         },
       });
     }
