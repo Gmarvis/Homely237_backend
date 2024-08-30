@@ -2,7 +2,9 @@ import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { AppointmentsService } from './appointments.service';
 import { CreateAppointmentDto } from './dto/createAppointmentDto';
 import { UpdateAppointmentDto } from './dto/updateAppointmentDto';
+import { ApiTags } from '@nestjs/swagger';
 @Controller('appointments')
+@ApiTags('Appointments')
 export class AppointmentsController {
   constructor(private readonly appointmentsService: AppointmentsService) {}
 
@@ -40,10 +42,7 @@ export class AppointmentsController {
 
   // UPDATE APPOINTMENT
   @Put(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateAppointmentDto: UpdateAppointmentDto,
-  ) {
+  update(@Param('id') id: string, @Body() updateAppointmentDto: UpdateAppointmentDto) {
     return this.appointmentsService.update(id, updateAppointmentDto);
   }
 }

@@ -17,10 +17,12 @@ import { UpdateUserDto } from './dto/updateUserDto';
 import { SignUpDto } from './dto/signUp.dto';
 import { LoginDto } from './dto/login.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
+import { ApiTags } from '@nestjs/swagger';
 // import { AuthGuard } from '@nestjs/passport';
 // import { User } from './models/user.model';
 
 @Controller('users')
+@ApiTags("Users")
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
   // CREATE NEW USER
