@@ -28,6 +28,7 @@ import { UsersService } from './users/users.service';
 import { Notification } from './notification/models/notifications.model';
 import { NotificationService } from './notification/notification.service';
 import { NotificationModule } from './notification/notification.module';
+import { AppointmentsService } from './appointments/appointments.service';
 
 @Module({
   imports: [
@@ -62,6 +63,6 @@ import { NotificationModule } from './notification/notification.module';
     NotificationModule,
   ],
   controllers: [AppController],
-  providers: [AppService, EmailService, AuthService, UsersService],
+  providers: [AppService],
 })
 export class AppModule {}
