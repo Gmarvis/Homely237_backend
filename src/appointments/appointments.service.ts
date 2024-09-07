@@ -34,7 +34,7 @@ export class AppointmentsService {
       console.log('appointment', appointment);
       await this.notificationService.sendNotifications(NotificationType.PUSH, {
         recipient_id: appointment.provider_id,
-        title: 'New appointment',
+        title: `New appointment from ${appointment.sender_name}`,
         appointment_id: appointment.id,
         body: `${appointment.description}`,
         type: NotificationType.PUSH
@@ -55,11 +55,11 @@ export class AppointmentsService {
     });
   }
 
-  // FIND BY USER ID
-  async findByUserId(user_id: string) {
+  // FIND BY sender ID
+  async findByUserId(sender_id: string) {
     return this.appointmentModel.findAll({
       where: {
-        user_id
+        sender_id
       },
       include: {
         model: User
@@ -102,7 +102,7 @@ export class AppointmentsService {
     });
 
     if (updated) {
-      return this.appointmentModel.findOne({
+      const appointment = await this.appointmentModel.findOne({
         where: {
           id
         },
@@ -110,6 +110,16 @@ export class AppointmentsService {
           model: User
         }
       });
+
+      await this.notificationService.sendNotifications(NotificationType.PUSH, {
+        recipient_id: appointment.sender_id,
+        title: `Appointment Approved`,
+        appointment_id: appointment.id,
+        // body: `${appointment.description}`,
+        type: NotificationType.PUSH
+      });
+
+      return appointment;
     }
   }
 

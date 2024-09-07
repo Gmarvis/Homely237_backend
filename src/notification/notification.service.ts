@@ -1,4 +1,4 @@
-import { HttpException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, HttpException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Notification } from './models/notifications.model';
 import { SendNotificationDto } from './dto/notifications.dto';
@@ -8,7 +8,6 @@ enum NotificationType {
   EMAIL = 'EMAIL',
   PUSH = 'PUSH'
 }
-
 
 @Injectable()
 export class NotificationService {
@@ -38,10 +37,11 @@ export class NotificationService {
   }
 
   //Get notifications
-  async getNotifications(id: string) {
+  async getNotifications(user_id: string) {
     try {
       return this.notificationModel.findAll({
-        where: { id }
+        where: { recipient_id: user_id },
+        order: [['updatedAt', 'DESC']]
       });
     } catch (error) {
       throw new NotFoundException(error);
@@ -49,24 +49,40 @@ export class NotificationService {
   }
 
   // update notification
-  async readNotification(id: string) {
+  async readNotification(notification_id: string) {
     try {
       return this.notificationModel.update(
-        { read_status: 'read' },
+        { read_status: true },
         {
-          where: { id }
+          where: { id: notification_id }
         }
       );
     } catch (error) {
-      throw new NotFoundException(`no notification with ${id}`, error?.message || error);
+      throw new NotFoundException(
+        `no notification with ${notification_id}`,
+        error?.message || error
+      );
     }
   }
   // Delete Notification
-  async deleteNotification(id: string) {
+  async deleteNotification(notification_id: string) {
     try {
       return this.notificationModel.destroy({
-        where: { id }
+        where: { id: notification_id }
       });
-    } catch (error) {}
+    } catch (error) {
+      throw new HttpException('an error occurred while trying deleting appointment', error);
+    }
+  }
+
+  // delete all notification
+  async deleteAll(user_id: string) {
+    try {
+      return this.notificationModel.destroy({
+        where: { recipient_id: user_id }
+      });
+    } catch (error) {
+      throw new NotFoundException('invalid user id', error);
+    }
   }
 }

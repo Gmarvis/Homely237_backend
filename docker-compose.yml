@@ -1,0 +1,14 @@
+# version: '3.5'
+
+services:
+  app:
+    build:
+      context: contextPath
+      dockerfile: Dockerfile
+    container_name: homygig_server
+    image: homygig_servers
+    ports:
+      - '4000:4000'
+    volumes:
+      - .:/src/app
+      - /src/app/node_modules

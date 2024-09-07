@@ -6,14 +6,14 @@ import {
   IsUUID,
   Model,
   PrimaryKey,
-  Table,
+  Table
 } from 'sequelize-typescript';
 import { User } from 'src/users/models/user.model';
 
 enum NotificationType {
   SMS = 'SMS',
   EMAIL = 'EMAIL',
-  PUSH = 'PUSH',
+  PUSH = 'PUSH'
 }
 
 @Table
@@ -21,13 +21,13 @@ export class Notification extends Model {
   @IsUUID(4)
   @PrimaryKey
   @Column({
-    defaultValue: DataTypes.UUIDV4,
+    defaultValue: DataTypes.UUIDV4
   })
   id: string;
 
   @Column({
     type: DataTypes.ENUM(...Object.values(NotificationType)),
-    defaultValue: NotificationType.PUSH,
+    defaultValue: NotificationType.PUSH
   })
   type: NotificationType;
 
@@ -48,7 +48,7 @@ export class Notification extends Model {
   appointment_id: string;
 
   @Column({
-    defaultValue: false,
+    defaultValue: false
   })
   read_status: boolean;
 

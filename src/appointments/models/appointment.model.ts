@@ -28,7 +28,10 @@ export class Appointment extends Model {
 
   @ForeignKey(() => User)
   @Column
-  user_id: string;
+  sender_id: string;
+  
+  @Column
+  sender_name: string;
 
   @Column
   provider_id: string;
